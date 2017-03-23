@@ -11,7 +11,7 @@ let task = {
 	}
 };
 
-for (let taskName of ['iconFont', 'clean', 'css', 'fonts', 'images', 'js', 'jsLint', 'optimizeImages', 'scss', 'scssLint', 'static', 'svgSprite']) {
+for (let taskName of ['iconFont', 'clean', 'css', 'fonts', 'images', 'js', 'jsLint', 'optimizeImages', 'scssLint', 'static', 'svgSprite']) {
 	let func = require('./' + taskName);
 	if (typeof func !== 'function') {
 		func = task.noop;
@@ -19,6 +19,14 @@ for (let taskName of ['iconFont', 'clean', 'css', 'fonts', 'images', 'js', 'jsLi
 	task[taskName] = func;
 }
 
+for (let taskWithTimeout of ['scss']) {
+	let func = require('./' + taskWithTimeout);
+	if (typeof func !== 'function') {
+		task[taskWithTimeout] = task.noop;
+	} else {
+		task[taskWithTimeout] = bach.series(func, task.timeout);
+	}
+}
 
 task.info = (callback) => {
 	let table = textTable([
@@ -32,7 +40,7 @@ task.info = (callback) => {
 }
 
 if (config.tasks.css) {
-	gulp.task('css', bach.series(task.scss, task.timeout, task.css));
+	gulp.task('css', bach.series(task.scss, task.css));
 	gulp.task('css').description = 'Render CSS Files';
 	gulp.task('css').flags = flags;
 
