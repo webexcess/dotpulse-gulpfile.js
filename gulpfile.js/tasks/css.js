@@ -36,13 +36,13 @@ let postScss = [
 	require('postcss-selector-not'),
 	require('postcss-pseudoelements'),
 	require('postcss-quantity-queries'),
-	require('css-mqpacker')(pc.mqpacker),
 	require('postcss-fixes')(pc.fixes),
+	require('css-mqpacker')(pc.mqpacker),
 	require('postcss-reporter')
 ];
 
-if (pc.activateRtlCssCombined) {
-	postScss[postScss.length] = require('postcss-rtlcss-combined');
+if (pc.activateRtlCss) {
+	postScss.unshift(require('postcss-inline-rtl'));
 }
 
 let paths = {
