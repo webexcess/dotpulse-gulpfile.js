@@ -44,6 +44,9 @@ if (config.tasks.css) {
 	gulp.task('css').description = 'Render CSS Files';
 	gulp.task('css').flags = flags;
 
+	gulp.task('scss', task.scss)
+	gulp.task('scss').description = 'Render _all.scss and _allsub.scss Files';
+
 	if (config.tasks.scssLint) {
 		gulp.task('scssLint', task.scssLint);
 		gulp.task('scssLint').description = 'Lint CSS Files';
@@ -82,7 +85,7 @@ task.watch = () => {
 			let filesToWatch = func.getFilesToWatch(taskName);
 			switch (taskName) {
 				case 'css':
-					gulp.watch(filesToWatch, bach.parallel(bach.series(task.scss, task.css), task.scssLint)).on('change', cache.update(taskName));
+					gulp.watch(filesToWatch, bach.parallel(task.css, task.scssLint)).on('change', cache.update(taskName));
 					break;
 				case 'js':
 					gulp.watch(filesToWatch, bach.parallel(task.js, task.jsLint)).on('change', cache.update(taskName));

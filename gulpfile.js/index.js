@@ -1,5 +1,5 @@
 'use strict';
-/*! Version: 3.0.0
+/*! Version: 3.1.0
 
 	'--b, --beautify' -> Dateien werden 'schön' ausgegeben & nicht minimiert
 	'--d, --debug'    -> Dateien werden nicht minimiert & Sourcemaps werden generiert

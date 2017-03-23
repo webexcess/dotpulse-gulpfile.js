@@ -27,6 +27,9 @@ Make sure Node installed. We recommend using [NVM](https://github.com/creationix
 If you use this library the first time, you need to be shure all global dependencies are installed correctly:
 
 ```bash
+# Install Yarn
+brew update
+brew install yarn
 # Uninstall Gulp
 npm uninstall --global gulp gulp-cli
 # Install ScssLint
@@ -35,7 +38,7 @@ gem install scss_lint
 npm install --global gulp-cli eslint jshint
 ```
 
-If the global dependencies are installed, you can install the rest with **`npm install`**.
+If the global dependencies are installed, you can install the rest with **`yarn`**.
 
 ## Overview
 
@@ -108,13 +111,13 @@ Package | Command
 [ScssLint](https://atom.io/packages/linter-scss-lint) | `apm install linter-scss-lint`
 [ESLint](https://atom.io/packages/linter-eslint) | `apm install linter-eslint`
 [JSHint](https://atom.io/packages/linter-jshint) | `apm install linter-jshint`
-[TypoScript](https://atom.io/packages/language-typoscript2) | `apm installlanguage-typoscript2`
+[TypoScript 2](https://atom.io/packages/language-typoscript2) | `apm installlanguage-typoscript2`
 
 ### [PhpStorm](https://www.jetbrains.com/phpstorm/) and [WebStorm](https://www.jetbrains.com/webstorm/)
 
 * [ScssLint](https://plugins.jetbrains.com/plugin/7530)
 * [ESLint](https://plugins.jetbrains.com/plugin/7494)
-* [TypoScript](https://plugins.jetbrains.com/plugin/7463)* * *
+* [TypoScript 2](https://plugins.jetbrains.com/plugin/7463)* * *
 > ##### License Terms
 > DE: Dieses Package wird durch webexcess unter der [GNU GPLv3 Lizenz](https://choosealicense.com/licenses/gpl-3.0/) verwaltet. Dieses Package und darin enthaltene oder hinzugefügte Quellcodes können exklusiv durch webexcess in Teilen oder als Ganzes zusätzlich und unter eigenem Namen unter der MIT-Lizenz veröffentlicht werden.
 
