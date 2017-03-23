@@ -42,7 +42,7 @@ let postScss = [
 ];
 
 if (pc.activateRtlCss) {
-	postScss.unshift(require('postcss-inline-rtl'));
+	postScss.unshift(require('postcss-rtl'));
 }
 
 let paths = {

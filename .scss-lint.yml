@@ -2,24 +2,27 @@ exclude: 'node_modules/**'
 exclude: 'bower_components/**'
 
 linters:
-  NameFormat:
+  BorderZero:
     enabled: false
   ColorVariable:
+    enabled: false
+  Comment:
+    enabled: false
+  Indentation:
+    enabled: false
+  LeadingZero:
+    enabled: false
+  NameFormat:
     enabled: false
   PlaceholderInExtend:
     enabled: false
   PropertySortOrder:
     enabled: false
-  BorderZero:
-    enabled: false
-  Indentation:
+  PropertySpelling:
     enabled: false
   SpaceAfterVariableName:
     enabled: false
-  PropertySpelling:
-    enabled: false
-  LeadingZero:
-    enabled: false
+
   NestingDepth:
     max_depth: 4
   SelectorDepth:

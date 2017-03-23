@@ -45,7 +45,7 @@
             "sass": {
                 "imagePath": "Assets",
                 "precision": 10,
-                "sourceComments": false,
+                "sourceComments": true,
                 "includePaths": [
                     "./www/Neos/Packages/Plugins/",
                     "./bower_components/",
