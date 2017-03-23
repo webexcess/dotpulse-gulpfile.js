@@ -93,22 +93,28 @@ function shureArray(input) {
 }
 
 function getFilesToWatch(taskName) {
-	let conf = config.tasks[taskName];
-	let watchConfig = shureArray(config.root.watch);
-	let dontWatch   = shureArray(config.root.dontWatch);
+	let conf         = config.tasks[taskName];
+	let watchConfig  = shureArray(config.root.watch);
+	let dontWatch    = shureArray(config.root.dontWatch);
 	let filesToWatch = [];
 	if (conf && watchConfig && watchConfig.length) {
-		filesToWatch = watchConfig.map(value => path.join(config.root.base, value, getExtensions(conf.extensions)));
+		if (conf.watchOnlySrc) {
+			filesToWatch.push(path.join(config.root.base, config.root.src, conf.src, '/**', getExtensions(conf.extensions)));
+		} else {
+			filesToWatch = watchConfig.map(value => path.join(config.root.base, value, getExtensions(conf.extensions)));
+		}
 
 		if (dontWatch && dontWatch.length) {
 			dontWatch.forEach(value => {
-				filesToWatch.push('!' + path.join(config.root.base, value, getExtensions(conf.extensions)))
+				if (value) {
+					filesToWatch.push('!' + path.join(config.root.base, value, getExtensions(conf.extensions)));
+				}
 			});
 		}
 
 		if (taskName == 'css') {
 			watchConfig.forEach(value => {
-				filesToWatch.push('!' + path.join(config.root.base, value, '**/_{all,allsub}.scss'))
+				filesToWatch.push('!' + path.join(config.root.base, value, '**/_{all,allsub}.scss'));
 			});
 		}
 	}
@@ -116,10 +122,10 @@ function getFilesToWatch(taskName) {
 }
 
 function pluralize(string, count) {
-    if (count > 1) {
-        string += 's';
-    }
-    return string;
+	if (count > 1) {
+		string += 's';
+	}
+	return string;
 }
 
 function notifyText(object) {

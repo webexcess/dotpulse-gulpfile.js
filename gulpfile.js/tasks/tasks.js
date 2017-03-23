@@ -1,12 +1,17 @@
 'use strict';
 let func = require('../functions');
 let task = {
-	noop: (callback) => {
+	noop: callback => {
 		callback();
+	},
+	timeout: callback => {
+		setTimeout(() => {
+			callback();
+		}, 10);
 	}
 };
 
-for (let taskName of ['iconFont', 'clean', 'css', 'fonts', 'images', 'js', 'jsLint', 'optimizeImages', 'scss', 'scssLint', 'static', 'svgSprite', 'typescript']) {
+for (let taskName of ['iconFont', 'clean', 'css', 'fonts', 'images', 'js', 'jsLint', 'optimizeImages', 'scss', 'scssLint', 'static', 'svgSprite']) {
 	let func = require('./' + taskName);
 	if (typeof func !== 'function') {
 		func = task.noop;
@@ -27,7 +32,7 @@ task.info = (callback) => {
 }
 
 if (config.tasks.css) {
-	gulp.task('css', bach.series(task.scss, task.css));
+	gulp.task('css', bach.series(task.scss, task.timeout, task.css));
 	gulp.task('css').description = 'Render CSS Files';
 	gulp.task('css').flags = flags;
 
@@ -48,13 +53,6 @@ if (config.tasks.js) {
 	}
 }
 
-
-if (config.tasks.typescript) {
-	gulp.task('typescript', task.typescript);
-	gulp.task('typescript').description = 'Render Javascript with TypeScript';
-	gulp.task('typescript').flags = flags;
-}
-
 if (config.root.optimizeImages) {
 	gulp.task('images', task.images);
 	gulp.task('images').description = 'Copy and optimize images';
@@ -64,22 +62,25 @@ gulp.task('optimizeImages', task.optimizeImages);
 gulp.task('optimizeImages').description = 'Optimize images and overrite them in the source folder';
 
 // Build Task
-gulp.task('build', bach.series(task.clean, task.info, bach.parallel(task.iconFont, task.fonts, task.images, task.jsLint, task.scss, task.scssLint, task.static, task.svgSprite), bach.parallel(task.css, task.js, task.typescript)));
+gulp.task('build', bach.series(task.clean, task.info, bach.parallel(task.iconFont, task.fonts, task.images, task.jsLint, task.scss, task.scssLint, task.static, task.svgSprite), bach.parallel(task.css, task.js)));
 gulp.task('build').description = util.colors.inverse(' Generates all ') + ' Assets, Javascript and CSS files';
 gulp.task('build').flags = flags;
 
 // Watch
 task.watch = () => {
-	let watchableTasks = ['iconFont', 'css', 'fonts', 'images', 'js', 'static', 'svgSprite', 'typescript'];
+	let watchableTasks = ['iconFont', 'css', 'fonts', 'images', 'js', 'static', 'svgSprite'];
 	watchableTasks.forEach((taskName) => {
 		if (config.tasks[taskName]) {
 			let filesToWatch = func.getFilesToWatch(taskName);
-			if (taskName == 'css') {
-				gulp.watch(filesToWatch, bach.parallel(bach.series(task.scss, task.css), task.scssLint)).on('change', cache.update(taskName));
-			} else if (taskName == 'js') {
-				gulp.watch(filesToWatch, bach.parallel(task.js, task.jsLint)).on('change', cache.update(taskName));
-			} else {
-				gulp.watch(filesToWatch, task[taskName]).on('change', cache.update(taskName));
+			switch (taskName) {
+				case 'css':
+					gulp.watch(filesToWatch, bach.parallel(bach.series(task.scss, task.css), task.scssLint)).on('change', cache.update(taskName));
+					break;
+				case 'js':
+					gulp.watch(filesToWatch, bach.parallel(task.js, task.jsLint)).on('change', cache.update(taskName));
+					break;
+				default:
+					gulp.watch(filesToWatch, task[taskName]).on('change', cache.update(taskName));
 			}
 		}
 	});

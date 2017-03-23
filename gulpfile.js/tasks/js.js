@@ -5,22 +5,29 @@ if (!config.tasks.js) {
 }
 
 let include = require('gulp-include');
-
+let babelConfig = config.tasks.js.babel;
 let paths = {
 	src: path.join(config.root.base, config.root.src, config.tasks.js.src, getExtensions(config.tasks.js.extensions)),
 	dest: path.join(config.root.base, config.root.dest, config.tasks.js.dest),
 	include: config.tasks.js.include
 };
-paths.include.includePaths[0] = path.join(config.root.base, config.root.src);
+if (paths.include.includePaths && paths.include.includePaths[0] == '') {
+	paths.include.includePaths[0] = path.join(config.root.base, config.root.src);
+}
+
+if (babelConfig) {
+	if (babelConfig.paths.length && babelConfig.paths[0] == '') {
+		babelConfig.paths[0] = path.join(config.root.base, config.root.src);
+	}
+	if (typeof babelConfig.debug === 'undefined') {
+		babelConfig.debug = mode.maps;
+	}
+}
 
 function js() {
 	let babel = () => {
 		return through2.obj((file, enc, next) => {
-			browserify(file.path, {
-				paths: 'bower_components',
-				sourceType: 'module',
-				debug: mode.maps
-			})
+			browserify(file.path, babelConfig)
 			.transform(babelify)
 			.bundle((error, res) => {
 				// assumes file.contents is a Buffer
@@ -32,7 +39,7 @@ function js() {
 
 	return gulp.src(paths.src, {since: cache.lastMtime('js')})
 		.pipe(plumber(handleErrors))
-		.pipe(config.tasks.js.babel ? babel() : util.noop())
+		.pipe(babelConfig ? babel() : util.noop())
 		.pipe(include(paths.include))
 		.pipe(mode.maps ? sourcemaps.init({loadMaps: true}) : util.noop())
 		.pipe(mode.minimize ? uglify({mangle : true}) : util.noop())

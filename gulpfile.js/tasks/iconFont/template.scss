@@ -1,31 +1,36 @@
 {{comment}}
 
+$icon-font-path:        '{{fontPath}}' !default;
+$icon-font-size-base:   14px !default;
+$icon-line-height-base: 1 !default;
+$icon-css-prefix:       ico !default;
+
 @font-face {
 	font-family: {{fontName}};
-	src: url('{{fontPath}}/{{fontName}}.eot');
-	src: url('{{fontPath}}/{{fontName}}.eot?#iefix') format('embedded-opentype'), url('{{fontPath}}/{{fontName}}.woff') format('woff'), url('{{fontPath}}/{{fontName}}.ttf') format('truetype'), url('{{fontPath}}/{{fontName}}.svg#{{fontName}}') format('svg');
+	src: url('#{$icon-font-path}/{{fontName}}.eot');
+	src: url('#{$icon-font-path}/{{fontName}}.eot?#iefix') format('embedded-opentype'), url('#{$icon-font-path}/{{fontName}}.woff') format('woff'), url('#{$icon-font-path}/{{fontName}}.ttf') format('truetype'), url('#{$icon-font-path}/{{fontName}}.svg#{{fontName}}') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @mixin icon {
+	display: inline-block;
+	font: normal normal normal #{$icon-font-size-base}/#{$icon-line-height-base} {{fontName}};
+	font-size: inherit;
+	text-rendering: auto;
+	font-feature-settings: 'liga';
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
 	&::before {
-		-moz-osx-font-smoothing: grayscale;
-		-webkit-font-smoothing: antialiased;
-		font-family: 'icons';
-		font-style: normal;
-		font-variant: normal;
-		font-weight: normal;
-		line-height: 1;
-		speak: none;
-		text-transform: none;
 		@content;
 	}
 }
 
-[class^='ico-'],
-[class*=' ico-'],
-.ico {
+[class^='#{$icon-css-prefix}-'],
+[class*=' #{$icon-css-prefix}-'],
+.#{$icon-css-prefix} {
 	@include icon;
 }
 
@@ -48,7 +53,7 @@ $icon-{{icon.name}}: '\{{icon.code}}' !default;
 // Icon Classes
 {% for icon in icons -%}
 
-.ico-{{icon.name}}::before {
+.#{$icon-css-prefix}-{{icon.name}}::before {
 	content: $icon-{{icon.name}};
 }
 

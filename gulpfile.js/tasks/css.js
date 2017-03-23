@@ -22,20 +22,23 @@ if (Array.isArray(assetConf.loadPaths)) {
 assetConf.relative = path.join(config.root.base, config.root.dest, config.tasks.css.dest);
 
 let postScss = [
-	require('lost'),                         // https://github.com/peterramsing/lost
-	require('postcss-short'),                // https://github.com/jonathantneal/postcss-short
-	require('postcss-center')(pc.rucksack),  // https://github.com/jedmao/postcss-center
-	require('rucksack-css'),                 // http://simplaio.github.io/rucksack/
-	require('postcss-flexbox'),              // https://github.com/archana-s/postcss-flexbox
-	require('postcss-assets')(assetConf),    // https://github.com/borodean/postcss-assets
-	require('postcss-flexibility'),          // https://github.com/10up/flexibility
-	require('pleeease-filters'),             // https://github.com/iamvdo/pleeease-filters
-	require('postcss-selector-matches'),     // https://github.com/postcss/postcss-selector-matches
-	require('postcss-selector-not'),         // https://github.com/postcss/postcss-selector-not
-	require('postcss-pseudoelements'),       // https://github.com/axa-ch/postcss-pseudoelements
-	require('postcss-quantity-queries'),     // https://github.com/pascalduez/postcss-quantity-queries
-	require('css-mqpacker')(pc.mqpacker),    // https://github.com/hail2u/node-css-mqpacker
-	require('postcss-fixes')(pc.fixes)       // https://github.com/MattDiMu/postcss-fixes
+	require('postcss-at-warn'),
+	require('lost'),
+	require('postcss-short'),
+	require('postcss-utilities'),
+	require('postcss-center'),
+	require('rucksack-css')(pc.rucksack),
+	require('postcss-flexbox'),
+	require('postcss-assets')(assetConf),
+	require('postcss-flexibility'),
+	require('pleeease-filters'),
+	require('postcss-selector-matches'),
+	require('postcss-selector-not'),
+	require('postcss-pseudoelements'),
+	require('postcss-quantity-queries'),
+	require('css-mqpacker')(pc.mqpacker),
+	require('postcss-fixes')(pc.fixes),
+	require('postcss-reporter')
 ];
 
 let paths = {
@@ -54,7 +57,7 @@ function css() {
 		.pipe(flatten())
 		.pipe(postcss(postScss))
 		.pipe(mode.minimize ? postcss([cssnano(pc.cssnano)]) : postcss([autoprefixer(pc.cssnano.autoprefixer)]))
-		.pipe(mode.beautify ? beautify(config.styles.cssbeautifyOptions) : util.noop())
+		.pipe(mode.beautify ? beautify(config.tasks.css.cssbeautifyOptions) : util.noop())
 		.pipe(config.root.inlineAssets ? gulp.dest(path.join(config.root.base, config.root.inlineAssets)) : util.noop())
 		.pipe(header(config.banner, {
 			info: config.info,

@@ -13,7 +13,7 @@ let cssPath  = path.join(config.root.base, config.root.dest, config.tasks.css.de
 
 let settings = {
 	name: config.info.name + ' Icons',
-	src: path.join(config.root.base, config.root.src, config.tasks.iconFont.src, '/*.svg'),
+	src: path.join(config.root.base, config.root.src, config.tasks.iconFont.src, getExtensions(config.tasks.iconFont.extensions)),
 	dest: path.join(config.root.base, config.root.dest, config.tasks.iconFont.dest),
 	sassDest: path.join(config.root.base, config.root.src, config.tasks.iconFont.sassDest),
 	template: path.normalize('./gulpfile.js/tasks/iconFont/template.scss'),
@@ -25,7 +25,7 @@ let settings = {
 		fontName: 'icoFont',
 		prependUnicode: false,
 		normalize: true,
-		formats: config.tasks.iconFont.extensions
+		formats: config.tasks.iconFont.formats
 	}
 };
 

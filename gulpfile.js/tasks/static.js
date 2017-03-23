@@ -14,7 +14,6 @@ function copy() {
 		.pipe(plumber(handleErrors))
 		.pipe(cache('static'))
 		.pipe(changed(paths.dest)) // Ignore unchanged files
-		.pipe(flatten())
 		.pipe(chmod(644))
 		.pipe(gulp.dest(paths.dest))
 		.pipe(size({

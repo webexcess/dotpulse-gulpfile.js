@@ -10,8 +10,8 @@
         "base": "./www/Neos/",
         "src": "Packages/Sites/Dotpulse.Theme/Resources/Private",
         "dest": "Packages/Sites/Dotpulse.Theme/Resources/Public",
-        "watch": "Packages/**",
-        "dontWatch": "Packages/**/Public/**",
+        "watch": ["Packages/Plugins/**/Private/**", "Packages/Sites/**/Private/**"],
+        "dontWatch": ["Packages/**/WebRoot/**", "Packages/Plugins/Jonnitto.Plyr/**", "Packages/Plugins/Jonnitto.PhotoSwipe/**"],
         "inlineAssets": false,
         "optimizeImages": false
     },
@@ -72,7 +72,14 @@
             "src": "Components",
             "extensions": ["js"],
             "dest": "Scripts",
-            "babel": true,
+            "babel": {
+                "paths": [
+                    "",
+                    "www/Neos/Packages/Plugins",
+                    "bower_components"
+                ],
+                "sourceType": "module"
+            },
             "include": {
                 "extensions": "js",
                 "includePaths": [
@@ -85,35 +92,36 @@
             },
             "extensions": ["js"]
         },
-        "typescript": {
-            "src": "Components",
-            "dest": "Scripts",
-            "extensions": ["ts"]
-        },
         "images": {
             "src": "Images",
             "dest": "Assets",
+            "watchOnlySrc": true,
             "extensions": ["jpg", "jpeg", "png", "svg", "gif", "ico"]
         },
         "fonts": {
             "src": "Fonts",
             "dest": "Assets",
+            "watchOnlySrc": true,
             "extensions": ["woff2", "woff", "eot", "ttf", "svg"]
         },
         "static": {
             "src": "Static",
             "dest": "Assets",
+            "watchOnlySrc": true,
             "extensions": ["*"]
         },
         "iconFont": {
             "src": "Icons",
             "dest": "Assets",
             "sassDest": "Components/Icon/Generated",
-            "extensions": ["woff2", "woff", "eot", "ttf", "svg"]
+            "formats": ["woff2", "woff", "eot", "ttf", "svg"],
+            "watchOnlySrc": true,
+            "extensions": ["svg"]
         },
         "svgSprite": {
             "src": "Sprite",
             "dest": "Assets",
+            "watchOnlySrc": true,
             "extensions": ["svg"]
         }
     }

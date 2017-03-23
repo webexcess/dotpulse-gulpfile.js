@@ -8,24 +8,41 @@
 
 gulpfile.js is a delicious blend of tasks and build tools poured into [Gulp](http://gulpjs.com/) to form a full-featured modern asset pipeline. You can easily be integrated to the development environment and site or app structure.
 
+## Clone from bitbucket
+
 ```bash
+# Go into an empty folder
 # Clone from bitbucket
-hg clone ssh://hg@bitbucket.org/dotpulse/gulpfile.js
-# Go into the directory
-cd gulpfile.js
+hg clone ssh://hg@bitbucket.org/dotpulse/gulpfile.js ./
 # Make the repo your own
-rm -rf .hg
-# Install dependencies
-npm i
-# Start Gulp
-gulp
+rm -rf .hg .hgflow .flow .hgtags
 ```
+
+## Usage
+
+Make sure Node installed. We recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
+
+### Install Dependencies
+
+If you use this library the first time, you need to be shure all global dependencies are installed correctly:
+
+```bash
+# Uninstall Gulp
+npm uninstall --global gulp gulp-cli
+# Install ScssLint
+gem install scss_lint
+# Install some plugins globally
+npm install --global gulp-cli eslint jshint
+```
+
+If the global dependencies are installed, you can install the rest with **`npm install`**.
+
+## Overview
 
 Features       | Tools Used
 -------------- | ---------------------
 **CSS**        | [Sass](http://sass-lang.com) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)) and [PostCSS](http://postcss.org)
 **Javascript** | [Browserify](http://browserify.org/) with [Babel](https://babeljs.io)
-**TypeScript** | [TypeScript](https://www.typescriptlang.org)
 **Images**     | Compression with [imagemin](https://www.npmjs.com/package/gulp-imagemin). Run width `gulp optimizeImages`. Overwrites files in the resource folder.
 **Icons**      | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore) and/or [Icon Fonts](https://www.npmjs.com/package/gulp-iconfont)
 **Lint**       | [ScssLint](https://github.com/brigade/scss-lint), [ESLint](http://eslint.org/) and [JSHint](http://jshint.com/about/) included
@@ -35,7 +52,7 @@ You can configure the behaviour with the `gulp.json` in the root folder. To turn
 ```json
 {
 	"tasks": {
-		"typescript": false
+		"js": false
 	}
 }
 ```
@@ -61,8 +78,10 @@ Following plugins are included:
 
 Plugin                                              | Description
 --------------------------------------------------- | ----------------------
+**[postcss-at-warn](https://www.npmjs.com/package/postcss-at-warn)** | `@warn` for PostCSS.
 **[lost](https://www.npmjs.com/package/lost)**      | PostCSS fractional grid system built with calc() by the guy who built Jeet. Supports masonry, vertical, and waffle grids.
 **[postcss-short](https://www.npmjs.com/package/postcss-short)**        | Short creates and extends shorthand properties in CSS
+**[postcss-utilities](https://ismamz.github.io/postcss-utilities/)** | postcss-utilities is a PostCSS plugin that have the most used mixins, shortcuts and helpers to use as `@util` rules in yours stylesheets.
 **[postcss-center](https://www.npmjs.com/package/postcss-center)**      | PostCSS plugin to center elements.
 **[rucksack-css](https://simplaio.github.io/rucksack/)**                | A little bag of CSS superpowers
 **[postcss-flexbox](https://www.npmjs.com/package/postcss-flexbox)**    | Flexbox layouts made easy with PostCSS
@@ -89,30 +108,13 @@ Package | Command
 [ScssLint](https://atom.io/packages/linter-scss-lint) | `apm install linter-scss-lint`
 [ESLint](https://atom.io/packages/linter-eslint) | `apm install linter-eslint`
 [JSHint](https://atom.io/packages/linter-jshint) | `apm install linter-jshint`
-[TypeScript](https://atom.io/packages/atom-typescript) | `apm install atom-typescript`
 [TypoScript](https://atom.io/packages/language-typoscript2) | `apm installlanguage-typoscript2`
 
 ### [PhpStorm](https://www.jetbrains.com/phpstorm/) and [WebStorm](https://www.jetbrains.com/webstorm/)
 
 * [ScssLint](https://plugins.jetbrains.com/plugin/7530)
 * [ESLint](https://plugins.jetbrains.com/plugin/7494)
-* [TypoScript](https://plugins.jetbrains.com/plugin/7463)
-
-
-## Usage
-Make sure Node installed. We recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
-
-#### Install Dependencies
-```bash
-# Uninstall Gulp
-npm uninstall --global gulp gulp-cli
-# Install ScssLint
-gem install scss_lint
-# Install some plugins globally
-npm install --global gulp-cli typescript typings eslint jshint
-npm install
-```
-* * *
+* [TypoScript](https://plugins.jetbrains.com/plugin/7463)* * *
 > ##### License Terms
 > DE: Dieses Package wird durch webexcess unter der [GNU GPLv3 Lizenz](https://choosealicense.com/licenses/gpl-3.0/) verwaltet. Dieses Package und darin enthaltene oder hinzugefügte Quellcodes können exklusiv durch webexcess in Teilen oder als Ganzes zusätzlich und unter eigenem Namen unter der MIT-Lizenz veröffentlicht werden.
 
