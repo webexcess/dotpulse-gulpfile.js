@@ -18,6 +18,24 @@
 
     "banner": "/*!\n * <%= info.description %> - powered by <%= info.system %> & <%= info.author %>\n * @build <%= timestamp %>\n * @link <%= info.homepage %>\n */\n",
 
+    "chmod": {
+        "owner": {
+            "read": true,
+            "write": true,
+            "execute": false
+        },
+        "group": {
+            "read": true,
+            "write": false,
+            "execute": false
+        },
+        "others": {
+            "read": true,
+            "write": false,
+            "execute": false
+        }
+    },
+
     "tasks": {
         "clean": ["Assets", "Styles", "Scripts", "*.css", "*.js"],
         "css": {
@@ -35,6 +53,7 @@
                 ]
             },
             "postcss": {
+                "activateRtlCssCombined": false,
                 "assets": {
                     "loadPaths": ["Assets"],
                     "cachebuster": false

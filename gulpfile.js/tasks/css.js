@@ -41,6 +41,10 @@ let postScss = [
 	require('postcss-reporter')
 ];
 
+if (pc.activateRtlCssCombined) {
+	postScss[postScss.length] = require('postcss-rtlcss-combined');
+}
+
 let paths = {
 	src: path.join(config.root.base, config.root.src, config.tasks.css.src, getExtensions(config.tasks.css.extensions)),
 	dest: path.join(config.root.base, config.root.dest, config.tasks.css.dest)
@@ -63,7 +67,7 @@ function css() {
 			info: config.info,
 			timestamp: getTimestamp()
 		}))
-		.pipe(chmod(644))
+		.pipe(chmod(config.chmod))
 		.pipe(mode.maps ? sourcemaps.write() : util.noop())
 		.pipe(gulp.dest(paths.dest))
 		.pipe(size({

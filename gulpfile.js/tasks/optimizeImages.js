@@ -15,7 +15,7 @@ function optimizeImages() {
 		],{
 			verbose: true
 		}))
-		.pipe(chmod(644))
+		.pipe(chmod(config.chmod))
 		.pipe(size({
 			title: 'Images:',
 			showFiles: false

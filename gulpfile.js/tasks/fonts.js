@@ -15,7 +15,7 @@ function fonts() {
 		.pipe(cache('fonts'))
 		.pipe(changed(paths.dest)) // Ignore unchanged files
 		.pipe(flatten())
-		.pipe(chmod(644))
+		.pipe(chmod(config.chmod))
 		.pipe(gulp.dest(paths.dest))
 		.pipe(size({
 			title: 'Fonts:',
