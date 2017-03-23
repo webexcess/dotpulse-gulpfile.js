@@ -1,0 +1,15 @@
+{
+  "name": "Gulp",
+  "description": "Dependencies",
+  "authors": [
+    "Jon Uhlmann <jon.uhlmann@dotpulse.ch>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}

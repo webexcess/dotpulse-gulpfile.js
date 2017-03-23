@@ -1,0 +1,121 @@
+{
+    "info": {
+        "description": "Website",
+        "system": "Neos",
+        "author": "dotpulse.ch",
+        "homepage": "https://www.example.com"
+    },
+
+    "root": {
+        "base": "./www/Neos/",
+        "src": "Packages/Sites/Dotpulse.Theme/Resources/Private",
+        "dest": "Packages/Sites/Dotpulse.Theme/Resources/Public",
+        "watch": "Packages/**",
+        "dontWatch": "Packages/**/Public/**",
+        "inlineAssets": false,
+        "optimizeImages": false
+    },
+
+    "banner": "/*!\n * <%= info.description %> - powered by <%= info.system %> & <%= info.author %>\n * @build <%= timestamp %>\n * @link <%= info.homepage %>\n */\n",
+
+    "tasks": {
+        "clean": ["Assets", "Styles", "Scripts", "*.css", "*.js"],
+        "css": {
+            "src": "Components",
+            "extensions": ["sass", "scss", "css"],
+            "dest": "Styles",
+            "sass": {
+                "imagePath": "Assets",
+                "precision": 10,
+                "sourceComments": false,
+                "includePaths": [
+                    "./www/Neos/Packages/Plugins/",
+                    "./bower_components/",
+                    "./node_modules/"
+                ]
+            },
+            "postcss": {
+                "assets": {
+                    "loadPaths": ["Assets"],
+                    "cachebuster": false
+                },
+                "rucksack": {
+                    "fallbacks": false
+                },
+                "mqpacker": {
+                    "sort": true
+                },
+                "cssnano": {
+                    "autoprefixer": {
+                        "add": true,
+                        "browsers": ["last 2 version", "> 1%", "safari 7", "ie 9", "bb 10", "android 4"]
+                    },
+                    "reduceIdents": false,
+                    "zindex": false,
+                    "discardComments": {
+                        "removeAll": true
+                    }
+                },
+                "fixes": {
+                    "preset": "safe"
+                }
+            },
+            "cssbeautifyOptions": {
+                "indent": "\t",
+                "autosemicolon": true
+            }
+        },
+        "scss": true,
+        "scssLint": true,
+        "jsLint": true,
+        "js": {
+            "src": "Components",
+            "extensions": ["js"],
+            "dest": "Scripts",
+            "babel": true,
+            "include": {
+                "extensions": "js",
+                "includePaths": [
+                    "",
+                    "./www/Neos/Packages/Plugins",
+                    "./bower_components",
+                    "./node_modules"
+                ],
+                "hardFail": false
+            },
+            "extensions": ["js"]
+        },
+        "typescript": {
+            "src": "Components",
+            "dest": "Scripts",
+            "extensions": ["ts"]
+        },
+        "images": {
+            "src": "Images",
+            "dest": "Assets",
+            "extensions": ["jpg", "jpeg", "png", "svg", "gif", "ico"]
+        },
+        "fonts": {
+            "src": "Fonts",
+            "dest": "Assets",
+            "extensions": ["woff2", "woff", "eot", "ttf", "svg"]
+        },
+        "static": {
+            "src": "Static",
+            "dest": "Assets",
+            "extensions": ["*"]
+        },
+        "iconFont": {
+            "src": "Icons",
+            "dest": "Assets",
+            "sassDest": "Components/Icon/Generated",
+            "extensions": ["woff2", "woff", "eot", "ttf", "svg"]
+        },
+        "svgSprite": {
+            "src": "Sprite",
+            "dest": "Assets",
+            "extensions": ["svg"]
+        }
+    }
+
+}

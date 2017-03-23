@@ -1,0 +1,23 @@
+{
+    "buildOnSave": false,
+    "compileOnSave": false,
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES3",
+        "declaration": false,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true
+    },
+    "exclude": [
+        "node_modules",
+        "bower_components"
+    ],
+    "filesGlob": [
+        "./**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": false
+    }
+}
